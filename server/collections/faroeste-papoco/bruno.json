@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "faroeste-papoco",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
