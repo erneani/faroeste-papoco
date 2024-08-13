@@ -13,8 +13,9 @@ func _process(delta):
 	pass
 
 
-func _on_button_pressed():
-	print(\"some\")
+func _on_login_button_pressed():
+	print(\"pressing button\")
+
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_gpjtf"]
@@ -84,3 +85,5 @@ text = "Criado por Vinícius Ernani"
 [node name="CenterContainer" type="CenterContainer" parent="MainMenu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
+
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/MenuOptions/LoginButton" to="." method="_on_login_button_pressed"]
