@@ -1,23 +1,25 @@
 extends CharacterBody2D
 
 @export var speed = 400
-
-var rotation_x = 0
-var rotation_y = 0
+@export var rotation_speed = 1.5
+@export var bullet_recoil = 5
 
 func get_inputs():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	var is_shoot_pressed = Input.is_action_pressed("main_action")
+
+	look_at(global_position + input_direction)
 
 	velocity = input_direction * speed
-	
-	if is_shoot_pressed:
+
+	if Input.is_action_pressed("main_action") and input_direction:
 		velocity = Vector2(0, 0)
+	
+	if Input.is_action_just_released("main_action"):
+		velocity = -velocity * bullet_recoil
+
 
 
 func _physics_process(delta):
 	get_inputs()
-	
-	print(rotation_x, " ", rotation_y)
-	
+
 	move_and_slide()
