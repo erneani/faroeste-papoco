@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwpwqfwywpuhy"]
+
+[ext_resource type="Script" path="res://scenes/entities/simple-bullet/SimpleBullet.gd" id="1_fs8h6"]
+[ext_resource type="Texture2D" uid="uid://cxlp22r5meuuw" path="res://assets/PNG/weapon_gun.png" id="1_tpwjo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbas5"]
+size = Vector2(18, 8)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_fs8h6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cbas5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tpwjo")

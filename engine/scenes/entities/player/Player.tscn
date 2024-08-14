@@ -1,16 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1l431x2uo06b"]
 
-[ext_resource type="Texture2D" uid="uid://vxpiwjv6gbs8" path="res://icon.svg" id="1_6svar"]
 [ext_resource type="Script" path="res://scenes/entities/player/Player.gd" id="1_xt5ux"]
+[ext_resource type="Texture2D" uid="uid://cuk6to1whgh1a" path="res://assets/PNG/Man Blue/manBlue_gun.png" id="2_m0kod"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id3ra"]
-size = Vector2(110, 110)
+size = Vector2(33.8882, 85.4488)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xt5ux")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-19.5, -0.731396)
+scale = Vector2(0.737721, 0.953352)
 shape = SubResource("RectangleShape2D_id3ra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_6svar")
+scale = Vector2(2, 2)
+texture = ExtResource("2_m0kod")

@@ -18,7 +18,6 @@ func get_inputs():
 		velocity = -velocity * bullet_recoil
 
 
-
 func _physics_process(delta):
 	get_inputs()
 
