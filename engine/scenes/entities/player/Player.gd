@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 400
 @export var rotation_speed = 1.5
-@export var bullet_recoil = 5
+@export var bullet_recoil = 10
 
 func get_inputs():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
