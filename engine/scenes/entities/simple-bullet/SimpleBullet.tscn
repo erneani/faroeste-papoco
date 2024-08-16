@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbas5"]
 size = Vector2(18, 8)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="CharacterBody2D"]
 script = ExtResource("1_fs8h6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -14,3 +14,5 @@ shape = SubResource("RectangleShape2D_cbas5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tpwjo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

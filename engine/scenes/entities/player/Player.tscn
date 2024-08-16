@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1l431x2uo06b"]
+[gd_scene load_steps=5 format=3 uid="uid://d1l431x2uo06b"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/Player.gd" id="1_xt5ux"]
 [ext_resource type="Texture2D" uid="uid://cuk6to1whgh1a" path="res://assets/PNG/Man Blue/manBlue_gun.png" id="2_m0kod"]
+[ext_resource type="PackedScene" uid="uid://bwpwqfwywpuhy" path="res://scenes/entities/simple-bullet/SimpleBullet.tscn" id="3_eipfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id3ra"]
 size = Vector2(33.8882, 85.4488)
@@ -19,7 +20,14 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_m0kod")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.082
+wait_time = 0.021
 one_shot = true
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(38, 19)
+
+[node name="Bullet" parent="." instance=ExtResource("3_eipfm")]
+visible = false
+position = Vector2(70, 18)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
