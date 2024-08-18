@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5gvuxjgtul75"]
+
+[ext_resource type="PackedScene" uid="uid://bjqcueqye4yu6" path="res://scenes/ui/matchs/match_row/MatchRow.tscn" id="1_a8gay"]
+
+[node name="Matchs" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="MatchInput" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Crie ou busque uma partida aqui..."
+
+[node name="SearchButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Pesquisar"
+
+[node name="CreateButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Criar nova partida"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MatchRow" parent="VBoxContainer" instance=ExtResource("1_a8gay")]
+layout_mode = 2

@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjehbjl7xmq2d"]
+
+[ext_resource type="Script" path="res://scenes/ui/logon/Logon.gd" id="1_wa80p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqhm3"]
+font_size = 32
+
+[node name="Logon" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+script = ExtResource("1_wa80p")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Criar novo usuário"
+label_settings = SubResource("LabelSettings_aqhm3")
+horizontal_alignment = 1
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 2
+text = "Seção para criar um novo usuário.
+Cada jogador deve ter um único usuário não mutável.
+A senha deve ter no mínimo 6 letras."
+
+[node name="UsernameInput" type="LineEdit" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Insira seu novo nome de usuário"
+
+[node name="PasswordInput" type="LineEdit" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Insira sua nova senha"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Criar novo usuário"
+
+[connection signal="text_changed" from="UsernameInput" to="." method="_on_username_input_text_changed"]
+[connection signal="text_changed" from="PasswordInput" to="." method="_on_password_input_text_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

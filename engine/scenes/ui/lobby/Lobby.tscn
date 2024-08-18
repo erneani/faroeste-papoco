@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnqidj2tdodn4"]
+[gd_scene load_steps=4 format=3 uid="uid://dnqidj2tdodn4"]
 
 [ext_resource type="Script" path="res://scenes/ui/lobby/Lobby.gd" id="1_sdau7"]
 [ext_resource type="PackedScene" uid="uid://cieo33rija636" path="res://scenes/ui/chat/Chat.tscn" id="2_2cw35"]
+[ext_resource type="PackedScene" uid="uid://b5gvuxjgtul75" path="res://scenes/ui/matchs/Matchs.tscn" id="3_6ndrf"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -18,5 +19,10 @@ layout_mode = 2
 
 [node name="VBoxContainer" parent="HBoxContainer" instance=ExtResource("2_2cw35")]
 layout_mode = 2
+size_flags_stretch_ratio = 0.5
+
+[node name="Matchs" parent="HBoxContainer" instance=ExtResource("3_6ndrf")]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [connection signal="ready" from="." to="." method="_on_ready"]
