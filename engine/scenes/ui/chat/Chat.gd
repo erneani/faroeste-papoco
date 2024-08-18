@@ -10,7 +10,10 @@ func _on_tree_entered():
 	multiplayer.multiplayer_peer = peer
 
 func _on_send_button_pressed():
-	rpc("msg_rpc", $HBoxContainer/TextInput.text)
+	send_message()
+
+func _on_text_input_text_submitted(new_text):
+	send_message()
 
 @rpc ("any_peer", "call_local")
 func msg_rpc(message):
@@ -21,3 +24,6 @@ func msg_rpc(message):
 # Helper functions
 func clear_text_input():
 	$HBoxContainer/TextInput.text = ''
+
+func send_message():
+	rpc("msg_rpc", $HBoxContainer/TextInput.text)

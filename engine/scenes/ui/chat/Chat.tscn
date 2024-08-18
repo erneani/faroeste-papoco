@@ -32,3 +32,4 @@ size_flags_horizontal = 3
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="HBoxContainer/SendButton" to="." method="_on_send_button_pressed"]
+[connection signal="text_submitted" from="HBoxContainer/TextInput" to="." method="_on_text_input_text_submitted"]
