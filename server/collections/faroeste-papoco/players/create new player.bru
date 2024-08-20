@@ -1,0 +1,19 @@
+meta {
+  name: create new player
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/players/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "email@email.com",
+    "username": "username",
+    "password": "admin"
+  }
+}
