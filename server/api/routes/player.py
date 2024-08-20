@@ -20,4 +20,4 @@ async def read_players():
 
 @router.post("/players/")
 async def create_player(player: Player) -> str:
-    return player_controller.insert_player(player)
+    return player_controller.create_player(player)

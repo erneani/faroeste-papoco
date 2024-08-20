@@ -16,6 +16,34 @@ OPENING_METHODS = {
 }
 
 
+def create_player(player: Player):
+    player_dict = player.dict()
+
+    existing_players = read_all_players()
+
+    validation_errors = validate_player_creation(player_dict, existing_players)
+
+    if not validation_errors:
+        insert_player(player)
+    
+    return "Criado" if not validation_errors else validation_errors
+
+
+def validate_player_creation(player: Player, existing_players: list[Player]):
+    existing_emails = [existing_player['email'] for existing_player in existing_players]
+    existing_usernames = [existing_player['username'] for existing_player in existing_players]
+
+    validation_errors = []
+
+    if player['email'] in existing_emails:
+        validation_errors.append("O email já existe")
+    
+    if player['username'] in existing_usernames:
+        validation_errors.append("O nome de usuário já existe")
+
+    return validation_errors
+
+
 def insert_player(player: Player):
     file_exists = os.path.exists(PLAYERS_FILE_PATH)
 
