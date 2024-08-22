@@ -1,16 +1,12 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
-
-from ..models import Player
+from ..schemas import UserPublicSchema, UserSchema
 from ..controllers import player_controller
 
 
 router = APIRouter()
 
-class Player(BaseModel):
-    email: str
-    username: str
-    password: str
+
+HTTPStatus = {"CREATED": 201}
 
 
 @router.get("/players/")
@@ -18,6 +14,10 @@ async def read_players():
     return player_controller.read_all_players()
 
 
-@router.post("/players/")
-async def create_player(player: Player) -> str:
+@router.post(
+    "/players/",
+    status_code=HTTPStatus["CREATED"],
+    response_model=UserPublicSchema,
+)
+async def create_player(player: UserSchema):
     return player_controller.create_player(player)
