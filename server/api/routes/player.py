@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..schemas import UserPublicSchema, UserSchema
+from ..schemas.player_schemas import UserPublicSchema, UserSchema
 from ..controllers import player_controller
 
 
