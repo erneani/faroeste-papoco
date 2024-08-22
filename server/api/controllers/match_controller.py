@@ -9,11 +9,11 @@ def read_all_matchs():
     return read_records(MATCHS_KEY)
 
 
-def create_match(match: MatchSchema):
+def insert_match(match: MatchSchema):
     existing_matchs = read_all_matchs()
 
-    validate(match.model_dump, existing_matchs)
-    insert_record(MATCHS_KEY, match.model_dump)
+    validate(match.model_dump(), existing_matchs)
+    insert_record(MATCHS_KEY, match.model_dump())
 
     return match
 

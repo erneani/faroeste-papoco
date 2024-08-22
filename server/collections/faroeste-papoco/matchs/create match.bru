@@ -1,0 +1,21 @@
+meta {
+  name: create match
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/matchs/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "some-id",
+    "player_amount": 2,
+    "created_by": "vernani",
+    "players_assigned": ["assdas","dsasda"],
+    "is_active": false
+  }
+}
