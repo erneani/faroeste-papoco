@@ -55,13 +55,26 @@ def read_record(key: str, record_id: str = None):
     if not record_id:
         raise "No Record ID"
 
-    all_records = read_all_database
+    all_records = read_all_database()
 
     records = all_records[key]
 
     record = [r for r in records if r["id"] == record_id][0]
 
     return record
+
+
+def delete_record(key: str, record_id: str = None):
+    if not record_id:
+        raise "No Record ID"
+
+    all_records = read_all_database()
+
+    records = all_records[key]
+
+    all_records[key] = [r for r in records if r["id"] != record_id]
+
+    write_database(all_records)
 
 
 # utility functions

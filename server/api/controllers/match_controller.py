@@ -1,4 +1,4 @@
-from ..database import read_records, insert_record
+from ..database import delete_record, read_records, insert_record
 from ..schemas.match_schemas import MatchSchema
 from fastapi import HTTPException
 
@@ -18,12 +18,16 @@ def insert_match(match: MatchSchema):
     return match
 
 
+def delete_match(match_id: str):
+    delete_record(MATCHS_KEY, match_id)
+
+
 # Helper functions
 
 
 def validate(match_dict, matchs):
     already_created_match = any(
-        [match.created == match_dict.created for match in matchs]
+        [match["created_by"] == match_dict["created_by"] for match in matchs]
     )
 
     if already_created_match:
