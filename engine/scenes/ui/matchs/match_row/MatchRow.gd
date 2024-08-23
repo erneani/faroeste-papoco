@@ -1,6 +1,5 @@
 extends HBoxContainer
 
-
 func _on_enter_button_pressed():
 	pass # Replace with function body.
 

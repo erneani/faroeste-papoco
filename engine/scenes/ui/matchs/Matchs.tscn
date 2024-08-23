@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5gvuxjgtul75"]
 
-[ext_resource type="PackedScene" uid="uid://bjqcueqye4yu6" path="res://scenes/ui/matchs/match_row/MatchRow.tscn" id="1_a8gay"]
+[ext_resource type="Script" path="res://scenes/ui/matchs/matchs.gd" id="1_6rol5"]
 
 [node name="Matchs" type="VBoxContainer"]
 anchors_preset = 15
@@ -9,6 +9,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
+script = ExtResource("1_6rol5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -31,8 +32,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Criar nova partida"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ItemList" type="ItemList" parent="."]
 layout_mode = 2
+size_flags_vertical = 3
+item_count = 1
 
-[node name="MatchRow" parent="VBoxContainer" instance=ExtResource("1_a8gay")]
-layout_mode = 2
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

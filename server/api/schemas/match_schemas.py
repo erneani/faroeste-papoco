@@ -8,3 +8,4 @@ class MatchSchema(BaseModel):
     created_by: str
     players_assigned: List[str]
     is_active: bool
+    name: str
