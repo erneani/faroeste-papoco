@@ -17,14 +17,17 @@ script = ExtResource("1_k8o2i")
 [node name="MainMenu" parent="." instance=ExtResource("1_tfp2y")]
 layout_mode = 2
 
-[node name="MarginContainer" parent="." instance=ExtResource("2_65m8h")]
+[node name="Lobby" parent="." instance=ExtResource("2_65m8h")]
 visible = false
 layout_mode = 2
 
-[connection signal="user_populated" from="." to="MarginContainer/HBoxContainer/VBoxContainer" method="_on_control_user_populated"]
+[connection signal="user_populated" from="." to="Lobby" method="_on_control_user_populated"]
+[connection signal="user_populated" from="." to="Lobby/HBoxContainer/HBoxContainer/Players" method="_on_control_user_populated"]
+[connection signal="user_populated" from="." to="Lobby/HBoxContainer/VBoxContainer" method="_on_control_user_populated"]
 [connection signal="login_authorized" from="MainMenu/HBoxContainer/MarginContainer/Login" to="." method="_on_login_login_authorized"]
 [connection signal="user_created" from="MainMenu/HBoxContainer/MarginContainer/Logon" to="MainMenu" method="_on_logon_user_created"]
 
 [editable path="MainMenu"]
-[editable path="MarginContainer"]
-[editable path="MarginContainer/HBoxContainer/VBoxContainer"]
+[editable path="Lobby"]
+[editable path="Lobby/HBoxContainer/HBoxContainer/Matchs"]
+[editable path="Lobby/HBoxContainer/VBoxContainer"]
