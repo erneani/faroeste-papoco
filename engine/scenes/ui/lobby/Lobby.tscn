@@ -30,7 +30,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer"]
+[node name="Matches" type="ItemList" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 item_count = 1
@@ -40,13 +40,14 @@ item_0/text = "Partida | Fulano | 4 players"
 layout_mode = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Deletar partida"
-
-[node name="Button2" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
+[node name="JoinButton" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Entrar na partida"
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Deletar partida"
 
 [node name="Players" type="PanelContainer" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
