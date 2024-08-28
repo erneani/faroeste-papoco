@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjqcueqye4yu6"]
-
-[ext_resource type="Script" path="res://scenes/ui/matchs/match_row/MatchRow.gd" id="1_pww55"]
+[gd_scene format=3 uid="uid://bjqcueqye4yu6"]
 
 [node name="MatchRow" type="HBoxContainer"]
 anchors_preset = 10
@@ -8,7 +6,6 @@ anchor_right = 1.0
 offset_bottom = 42.0
 grow_horizontal = 2
 theme_override_constants/separation = 8
-script = ExtResource("1_pww55")
 
 [node name="MatchName" type="Label" parent="."]
 layout_mode = 2

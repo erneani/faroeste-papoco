@@ -13,3 +13,6 @@ func _on_login_button_pressed():
 func _on_create_account_button_pressed():
 	hide_right_panels()
 	$HBoxContainer/MarginContainer/Logon.visible = true
+
+func _on_logon_user_created():
+	hide_right_panels()

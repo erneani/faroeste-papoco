@@ -38,5 +38,13 @@ theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Entrar no jogo"
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+title = ""
+initial_position = 1
+
 [connection signal="text_changed" from="UsernameInput" to="." method="_on_username_input_text_changed"]
 [connection signal="text_changed" from="PasswordInput" to="." method="_on_password_input_text_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

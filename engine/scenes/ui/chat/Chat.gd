@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+var chat_username
 
 func _on_tree_entered():
 	var peer = ENetMultiplayerPeer.new()
@@ -18,7 +19,7 @@ func _on_text_input_text_submitted(new_text):
 @rpc ("any_peer", "call_local")
 func msg_rpc(message):
 	clear_text_input()
-	$MessagesOutput.text += str(message, "\n")
+	$MessagesOutput.text += str(chat_username, ': ', message, "\n")
 	$MessagesOutput.scroll_vertical = INF
 
 # Helper functions
@@ -27,3 +28,6 @@ func clear_text_input():
 
 func send_message():
 	rpc("msg_rpc", $HBoxContainer/TextInput.text)
+
+func _on_control_user_populated(username):
+	chat_username = username

@@ -1,5 +1,6 @@
 extends MarginContainer
 
+var username
 
 func _on_ready():
 	var peer = ENetMultiplayerPeer.new()

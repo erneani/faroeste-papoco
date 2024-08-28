@@ -11,6 +11,8 @@ grow_vertical = 2
 theme_override_constants/separation = 30
 script = ExtResource("1_6rol5")
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -20,23 +22,11 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-placeholder_text = "Crie ou busque uma partida aqui..."
-
-[node name="SearchButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Pesquisar"
+placeholder_text = "Crie sua partida aqui"
 
 [node name="CreateButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Criar nova partida"
-
-[node name="ItemList" type="ItemList" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 1
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

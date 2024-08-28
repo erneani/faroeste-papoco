@@ -1,0 +1,18 @@
+meta {
+  name: perform login
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/players/login/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "vernani",
+    "password": "senha"
+  }
+}

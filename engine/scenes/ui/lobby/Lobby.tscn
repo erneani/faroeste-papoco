@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cieo33rija636" path="res://scenes/ui/chat/Chat.tscn" id="2_2cw35"]
 [ext_resource type="PackedScene" uid="uid://b5gvuxjgtul75" path="res://scenes/ui/matchs/Matchs.tscn" id="3_6ndrf"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="Lobby" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
