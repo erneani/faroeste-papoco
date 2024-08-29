@@ -2,13 +2,8 @@ extends VBoxContainer
 
 var chat_username
 
-func _on_tree_entered():
-	var peer = ENetMultiplayerPeer.new()
-	
-	peer.create_client("127.0.0.1", 1027)
-	get_tree().set_multiplayer(SceneMultiplayer.new(), self.get_path())
-	
-	multiplayer.multiplayer_peer = peer
+func _ready():
+	connect_to_multiplayer()
 
 func _on_send_button_pressed():
 	send_message()
@@ -31,3 +26,11 @@ func send_message():
 
 func _on_control_user_populated(username):
 	chat_username = username
+	#connect_to_multiplayer()
+
+func connect_to_multiplayer():
+	print("creating new peer")
+	var peer = ENetMultiplayerPeer.new()
+
+	peer.create_client("127.0.0.1", 1027)
+	multiplayer.multiplayer_peer = peer

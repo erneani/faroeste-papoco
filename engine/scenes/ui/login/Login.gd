@@ -16,11 +16,11 @@ func enable_button():
 
 # signals
 func _on_username_input_text_changed(new_text):
-	username = $UsernameInput.text
+	username = new_text
 	enable_button()
 
 func _on_password_input_text_changed(new_text):
-	password = $PasswordInput.text.sha256_text()
+	password = new_text
 	enable_button()
 
 
@@ -30,7 +30,7 @@ func _on_button_pressed():
 	$HTTPRequest.request(request_url, headers, HTTPClient.METHOD_POST, json)
 
 
-func _on_http_request_request_completed(result, response_code, headers, body):
+func _on_http_request_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		$AcceptDialog.title = "Usuário Logado!"
 		$AcceptDialog.dialog_text = "Usuário digitado corretamente, entrando..."
@@ -38,7 +38,7 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 		login_authorized.emit(username)
 		return
 
-	var json = JSON.parse_string(body.get_string_from_utf8())
+	var _json = JSON.parse_string(body.get_string_from_utf8())
 	$AcceptDialog.title = "Erro no Login"
 	$AcceptDialog.dialog_text = "Usuário ou Email incorretos"
 	$AcceptDialog.visible = true

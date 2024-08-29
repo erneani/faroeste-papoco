@@ -8,3 +8,6 @@ func _ready():
 
 func _on_http_request_request_completed(result, response_code, headers, body):
 	var match_list = JSON.parse_string(body.get_string_from_utf8())
+	
+	print(match_list)
+ 

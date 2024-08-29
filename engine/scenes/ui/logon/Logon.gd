@@ -26,7 +26,7 @@ func enable_button():
 		$Button.disabled = false
 
 
-func _on_http_request_request_completed(result, response_code, headers, body):
+func _on_http_request_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		$AcceptDialog.title = "Usuário criado"
 		$AcceptDialog.dialog_text = "Seu usuário foi criado corretamente."
