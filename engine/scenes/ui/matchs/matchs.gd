@@ -7,7 +7,8 @@ extends VBoxContainer
 var socket = WebSocketPeer.new()
 var matchs = []
 var match_username
-
+var has_created_match = false
+var latest_selected_item = null
 
 func _process(_delta):
 	if not match_username:
@@ -32,6 +33,10 @@ func _process(_delta):
 				for saved_match in matchs:
 					$VBoxContainer/Matches.add_item(saved_match)
 			
+				matchs = []
+			elif received_match == "empty":
+				$VBoxContainer/Matches.clear()
+				$HBoxContainer/CreateButton.disabled = false
 				matchs = []
 			else:
 				matchs.append(received_match)
@@ -69,9 +74,33 @@ func _on_match_input_text_submitted(new_text):
 	send_text(new_text)
 
 func send_text(text):
-	var formated_text = str(text, " | ", match_username)
+	var formated_text = str(text, " | ", match_username, " | 1 player")
 	
-	print(formated_text)
-
-	socket.send_text(str(text, " | ", match_username))
+	socket.send_text(formated_text)
 	$HBoxContainer/MatchInput.clear()
+	$HBoxContainer/CreateButton.disabled = true
+
+
+func _on_matches_item_selected(index):
+	latest_selected_item = index
+
+	var selected_text = $VBoxContainer/Matches.get_item_text(index)
+	
+	var match_info = selected_text.split(" | ")
+	
+	if match_info[1] == match_username:
+		$VBoxContainer/HBoxContainer/DeleteButton.disabled = false
+		$VBoxContainer/HBoxContainer/JoinButton.disabled = true
+		return
+
+	$VBoxContainer/HBoxContainer/JoinButton.disabled = false
+	$VBoxContainer/HBoxContainer/DeleteButton.disabled = true
+
+
+func _on_delete_button_pressed():
+	var match_to_delete = $VBoxContainer/Matches.get_item_text(latest_selected_item)
+	
+	socket.send_text(str("delete ", match_username))
+	
+	$VBoxContainer/HBoxContainer/DeleteButton.disabled = true
+	

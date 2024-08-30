@@ -42,6 +42,15 @@ class ConnectionManager:
 
         self.matchs.append(myMatch)
 
+    def remove_match(self, match_user):
+        parsed_match_user = match_user.split(" ")[1]
+
+        filtered_matchs = [
+            match for match in self.matchs if match["created_by"] != parsed_match_user
+        ]
+
+        self.matchs = filtered_matchs
+
     async def broadcast(self, message: str, type: str):
         filtered_connections = [
             connection["socket"]
@@ -101,7 +110,16 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
 
-            if data:
+            if data and data.startswith("delete"):
+                manager.remove_match(data)
+
+                if not manager.matchs:
+                    await manager.broadcast("empty", "match")
+                if manager.matchs:
+                    for match in manager.matchs:
+                        await manager.broadcast(match["description"], "match")
+                    await manager.broadcast("end", "match")
+            elif data:
                 manager.insert_match(data)
 
                 for match in manager.matchs:
