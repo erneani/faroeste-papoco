@@ -15,6 +15,7 @@ class ConnectionManager:
     def __init__(self):
         self.active_connections: list[any] = []
         self.players: list[str] = []
+        self.matchs: list[any] = []
 
     async def connect(self, websocket: WebSocket, type: str):
         await websocket.accept()
@@ -28,6 +29,18 @@ class ConnectionManager:
 
     def insert_player(self, new_player: str):
         self.players.append(new_player)
+
+    def insert_match(self, match_description):
+        match_props = match_description.split(" | ")
+
+        myMatch = {
+            "name": match_props[0],
+            "created_by": match_props[1],
+            "players": [match_props[1]],
+            "description": match_description,
+        }
+
+        self.matchs.append(myMatch)
 
     async def broadcast(self, message: str, type: str):
         filtered_connections = [
@@ -75,6 +88,26 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             await manager.broadcast(data, "message")
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast(f"player left the chat")
+
+
+@app.websocket("/ws/matchs")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket, "match")
+
+    try:
+        while True:
+            data = await websocket.receive_text()
+
+            if data:
+                manager.insert_match(data)
+
+                for match in manager.matchs:
+                    await manager.broadcast(match["description"], "match")
+
+                await manager.broadcast("end", "match")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"player left the chat")

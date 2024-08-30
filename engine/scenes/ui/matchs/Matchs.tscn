@@ -11,8 +11,6 @@ grow_vertical = 2
 theme_override_constants/separation = 30
 script = ExtResource("1_6rol5")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -29,4 +27,28 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Criar nova partida"
 
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Matches" type="ItemList" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "Partida | Fulano | 4 players"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="JoinButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Entrar na partida"
+
+[node name="DeleteButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Deletar partida"
+
+[connection signal="text_submitted" from="HBoxContainer/MatchInput" to="." method="_on_match_input_text_submitted"]
+[connection signal="pressed" from="HBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]

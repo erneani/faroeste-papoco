@@ -27,29 +27,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/HBoxContainer/Matchs"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Matches" type="ItemList" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 1
-item_0/text = "Partida | Fulano | 4 players"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="JoinButton" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Entrar na partida"
-
-[node name="DeleteButton" type="Button" parent="HBoxContainer/HBoxContainer/Matchs/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-disabled = true
-text = "Deletar partida"
-
 [node name="Players" type="VBoxContainer" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -71,6 +48,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_stretch_ratio = 0.3
 
+[connection signal="user_authorized" from="." to="HBoxContainer/HBoxContainer/Matchs" method="_on_lobby_user_authorized"]
 [connection signal="user_authorized" from="." to="HBoxContainer/HBoxContainer/Players" method="_on_lobby_user_authorized"]
 [connection signal="user_authorized" from="." to="HBoxContainer/VBoxContainer" method="_on_lobby_user_authorized"]
 [connection signal="text_submitted" from="HBoxContainer/HBoxContainer/Matchs/HBoxContainer/MatchInput" to="." method="_on_match_input_text_submitted"]
