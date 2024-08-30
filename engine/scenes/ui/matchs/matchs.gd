@@ -2,12 +2,15 @@ extends VBoxContainer
 
 # The URL we will connect to.
 @export var websocket_url = "ws://localhost:8000/ws/matchs"
+@export var max_players = 4
+@export var min_players = 2
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
 var matchs = []
 var match_username
-var has_created_match = false
+var has_joined_match = false
+var is_hosting_match = false
 var latest_selected_item = null
 
 func _process(_delta):
@@ -74,11 +77,13 @@ func _on_match_input_text_submitted(new_text):
 	send_text(new_text)
 
 func send_text(text):
-	var formated_text = str(text, " | ", match_username, " | 1 player")
+	var formated_text = str(text, " | ", match_username, " | ")
 	
 	socket.send_text(formated_text)
 	$HBoxContainer/MatchInput.clear()
 	$HBoxContainer/CreateButton.disabled = true
+	
+	is_hosting_match = true
 
 
 func _on_matches_item_selected(index):
@@ -92,15 +97,32 @@ func _on_matches_item_selected(index):
 		$VBoxContainer/HBoxContainer/DeleteButton.disabled = false
 		$VBoxContainer/HBoxContainer/JoinButton.disabled = true
 		return
+	
+	if len(match_info[2].split(", ")) == max_players:
+		$VBoxContainer/HBoxContainer/JoinButton.disabled = true
+		return
+
+	if has_joined_match or is_hosting_match:
+		$VBoxContainer/HBoxContainer/JoinButton.disabled = true
+		return
 
 	$VBoxContainer/HBoxContainer/JoinButton.disabled = false
 	$VBoxContainer/HBoxContainer/DeleteButton.disabled = true
 
 
 func _on_delete_button_pressed():
-	var match_to_delete = $VBoxContainer/Matches.get_item_text(latest_selected_item)
-	
 	socket.send_text(str("delete ", match_username))
 	
 	$VBoxContainer/HBoxContainer/DeleteButton.disabled = true
+	is_hosting_match = false
+
+
+func _on_join_button_pressed():
+	var match_to_join = $VBoxContainer/Matches.get_item_text(latest_selected_item)
 	
+	var match_creator = match_to_join.split(" | ")[1]
+	
+	socket.send_text(str("join ", match_creator, " ", match_username))
+	has_joined_match = true
+	
+	$VBoxContainer/HBoxContainer/JoinButton.disabled = true

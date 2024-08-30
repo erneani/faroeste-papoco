@@ -37,7 +37,11 @@ class ConnectionManager:
             "name": match_props[0],
             "created_by": match_props[1],
             "players": [match_props[1]],
-            "description": match_description,
+            "description": match_props[0]
+            + " | "
+            + match_props[1]
+            + " | players: "
+            + match_props[1],
         }
 
         self.matchs.append(myMatch)
@@ -50,6 +54,21 @@ class ConnectionManager:
         ]
 
         self.matchs = filtered_matchs
+
+    def insert_player_into_match(self, payload):
+        creator = payload.split(" ")[1]
+        player = payload.split(" ")[2]
+
+        for match in self.matchs:
+            if match["created_by"] == creator:
+                match["players"].append(player)
+                match["description"] = (
+                    match["name"]
+                    + " | "
+                    + match["created_by"]
+                    + " | players: "
+                    + ", ".join(match["players"])
+                )
 
     async def broadcast(self, message: str, type: str):
         filtered_connections = [
@@ -119,6 +138,16 @@ async def websocket_endpoint(websocket: WebSocket):
                     for match in manager.matchs:
                         await manager.broadcast(match["description"], "match")
                     await manager.broadcast("end", "match")
+            elif data and data.startswith("join"):
+                manager.insert_player_into_match(data)
+
+                print(data)
+                print(manager.matchs)
+
+                for match in manager.matchs:
+                    await manager.broadcast(match["description"], "match")
+
+                await manager.broadcast("end", "match")
             elif data:
                 manager.insert_match(data)
 
