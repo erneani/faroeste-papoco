@@ -13,12 +13,12 @@ create_db()
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: list[WebSocket] = []
+        self.active_connections: list[any] = []
         self.players: list[str] = []
 
-    async def connect(self, websocket: WebSocket):
+    async def connect(self, websocket: WebSocket, type: str):
         await websocket.accept()
-        self.active_connections.append(websocket)
+        self.active_connections.append({"socket": websocket, "type": type})
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
@@ -29,8 +29,14 @@ class ConnectionManager:
     def insert_player(self, new_player: str):
         self.players.append(new_player)
 
-    async def broadcast(self, message: str):
-        for connection in self.active_connections:
+    async def broadcast(self, message: str, type: str):
+        filtered_connections = [
+            connection["socket"]
+            for connection in self.active_connections
+            if connection["type"] == type
+        ]
+
+        for connection in filtered_connections:
             await connection.send_text(message)
 
 
@@ -44,20 +50,31 @@ async def root():
 
 @app.websocket("/ws/players")
 async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
+    await manager.connect(websocket, "player")
 
     try:
         while True:
             data = await websocket.receive_text()
 
-            print(data)
-
             if data:
                 manager.insert_player(data)
                 for player in manager.players:
-                    await manager.broadcast(player)
+                    await manager.broadcast(player, "player")
 
-                await manager.broadcast("end")
+                await manager.broadcast("end", "player")
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast(f"player left the chat")
+
+
+@app.websocket("/ws/messages")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket, "message")
+
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.broadcast(data, "message")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"player left the chat")
